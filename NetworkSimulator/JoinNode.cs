@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using RandomVariables;
 
 namespace NetworkSimulator
 {
     public class JoinNode : Node
     {
         //Матрица для маршрутизации фрагментов
-        protected double[,] RouteMatrixForNode { get; set; }
+        protected double[,,] RouteMatrixForNode { get; set; }
 
         //Буффер для хранения фрагментов в дивайдере
         protected List<Fragment> InBuffet { get; set; }
@@ -43,12 +44,15 @@ namespace NetworkSimulator
 
             for (int i = 0; i < RouteMatrixForNode.GetLength(1); i++)
             {
-                p += RouteMatrixForNode[k, i];
-                if (rand < p)
+                for (int j = 0; j < RouteMatrixForNode.GetLength(2); j++)
                 {
-                    //Посылаем фрагмент в указанный узел
-                    Send(fragment, Nodes[i]);
-                    break;
+                    p += RouteMatrixForNode[k, i, j];
+                    if (rand < p)
+                    {
+                        //Посылаем фрагмент в указанный узел
+                        Send(fragment, Nodes[i]);
+                        break;
+                    }
                 }
             }
         }
@@ -66,8 +70,13 @@ namespace NetworkSimulator
             NextEventTime = double.PositiveInfinity;
         }
 
+        public override void AddBasicNode(int ID, Random r, RandomVariable ServiceTime, Buffer InBuffer, int kappa, Node[] Nodes, InfoNode Info, double[,,] RouteMatrix)
+        {
+            throw new NotImplementedException();
+        }
+
         //Создание и инициализация интегратора
-        public JoinNode(int ID, Random random, Node[] nodes, InfoNode info, double[,] routeMatrixForNode)
+        public JoinNode(int ID, Random random, Node[] nodes, InfoNode info, double[,,] routeMatrixForNode)
         {
             this.ID = ID;
             this.random = random;

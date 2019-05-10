@@ -21,16 +21,18 @@ namespace NetworkDescriptions
         public int[] J { get; set; }
         //Массив номеров дивайдеров
         public int[] F { get; set; }
+        //Массив базовых систем
+        public int[] s { get; set; }
         //Матрица перехода
         public RoutingMatrix Theta { get; set; }
         //Интенсивность входящего потока
         public double Lambda0 { get; set; }
         //Массив интенсивностей обслуживания
         public double[] mu { get; set; }
-        //Вектор числа систем для каждого типа множеств систем в сети
-        public int[] s { get; set; }
+        //Число обслуживающих устройст в базовых системах
+        public int[] kappa { get; set; }
 
-        public Descriptoin(int[] S, int[] F, int[] J, double[] mu, double Lambda0, int[] s, RoutingMatrix Theta)
+        public Descriptoin(int[] S, int[] F, int[] J, double[] mu, double Lambda0, int[] s, int[] kappa, RoutingMatrix Theta)
         {
             N = 0;//Номер источника (всегда 0)
             this.S = S;
@@ -39,6 +41,7 @@ namespace NetworkDescriptions
             this.mu = mu;
             this.Lambda0 = Lambda0;
             this.s = s;
+            this.kappa = kappa;
             this.Theta = Theta;
             //место для матрицы перехода
         }
@@ -100,6 +103,14 @@ namespace NetworkDescriptions
                 for (int i = 0; i < s.Length; i++)
                 {
                     s[i] = int.Parse(temp[i]);
+                }
+
+                //Число обслуживающих устройств в каждом типе (множестве базовых систем)
+                temp = file.ReadLine().Split(';');
+                kappa = new int[s.Length];
+                for (int i = 0; i < kappa.Length; i++)
+                {
+                    kappa[i] = int.Parse(temp[i]);
                 }
 
                 //Интенсивность входящего потока

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RandomVariables;
 
 namespace NetworkSimulator
 {
@@ -13,12 +14,12 @@ namespace NetworkSimulator
         public int ForkNodeID { get; protected set; }
 
         //Маршрутная строка для дивайдера
-        protected double[] RouteRow { get; set; }
+        protected double[,] RouteRow { get; set; }
 
         //Число фрагментов на которое делится поступивший фрагмент
         private int ForkDegree { get; }
 
-        public ForkNode(int id, int forkNodeID, Random random, Node[] nodes, InfoNode info, double[] routeRow)
+        public ForkNode(int id, int forkNodeID, Random random, Node[] nodes, InfoNode info, double[,] routeRow)
         {
             ID = id;
             ForkNodeID = forkNodeID;
@@ -28,7 +29,9 @@ namespace NetworkSimulator
             RouteRow = routeRow;
 
             NumberOfArrivedDemands = 0;
-            ForkDegree = (int)RouteRow.Sum();
+
+            //ForkDegree = (int)RouteRow.Sum();
+            ForkDegree = 6;
             NextEventTime = double.PositiveInfinity;
         }
 
@@ -46,15 +49,18 @@ namespace NetworkSimulator
             //Проход по каждому смежному узлу
             for (int i = 0; i < Nodes.Length; i++)
             {
-                //Создаем фрагмент необходимое количество раз
-                for (int j = 0; j < RouteRow[i]; j++)
+                for (int j = 0; j < Nodes.Length; j++)
                 {
-                    Fragment part = new Fragment(fragment.TimeGeneration, fragment.ID, new SignatureForFragment(fragment, partIndex, ForkNodeID));
-                    part.NumberOfParts = ForkDegree;
-                    //Отправляем фрагмент в смежный узел
-                    Send(part, Nodes[i]);
-                    //Увеличиваем индекс фрагмента
-                    partIndex++;
+                    //Создаем фрагмент необходимое количество раз
+                    for (int k = 0; k < RouteRow[i, j]; k++)
+                    {
+                        Fragment part = new Fragment(fragment.TimeGeneration, fragment.ID, new SignatureForFragment(fragment, partIndex, ForkNodeID));
+                        part.NumberOfParts = ForkDegree;
+                        //Отправляем фрагмент в смежный узел
+                        Send(part, Nodes[i]);
+                        //Увеличиваем индекс фрагмента
+                        partIndex++;
+                    }
                 }
             }
         }
@@ -69,5 +75,10 @@ namespace NetworkSimulator
         //Активация дивайдера
         public override void Activate()
         {/**/}
+
+        public override void AddBasicNode(int ID, Random r, RandomVariable ServiceTime, Buffer InBuffer, int kappa, Node[] Nodes, InfoNode Info, double[,,] RouteMatrix)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

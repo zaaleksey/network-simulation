@@ -18,7 +18,8 @@ namespace NetworkDescriptions
         }
 
         //Размерность матрицы (количество узлов в сети)
-        public int Dimention { get { return Theta.GetLength(0); } }
+        public int Dimention1 { get { return Theta.GetLength(0); } }
+        public int Dimention2 { get { return Theta.GetLength(2); } }
 
         public int this[int i, int j, int k, int l]
         {
@@ -27,12 +28,33 @@ namespace NetworkDescriptions
         }
 
         //Строка матрицы передачи
-        public int[] RoutingRow(int i, int j, int k)
+        public double[,] RoutingRow(int i, int j)
         {
-            int[] row = new int[Dimention];
-            for (int l = 0; l < Theta.GetLength(3); l++)
+            double[,] row = new double[Dimention2, Dimention2];
+            for (int k = 0; k < Dimention2; k++)
             {
-                row[l] = Theta[i, j, k, l];
+                for (int l = 0; l < Dimention2; l++)
+                {
+                    row[k, l] = Theta[i, j, k, l];
+                }
+            }
+
+            return row;
+        }
+
+        //Маршрутная матрица для фиксированного узла
+        public double[,,] RoutingMatrixForNode(int i)
+        {
+            double[,,] row = new double[Dimention1, Dimention2, Dimention2];
+            for (int j = 0; j < Dimention1; j++)
+            {
+                for (int k = 0; k < Dimention2; k++)
+                {
+                    for (int l = 0; l < Dimention2; l++)
+                    {
+                        row[j, k, l] = Theta[i, j, k, l];
+                    }
+                }
             }
 
             return row;

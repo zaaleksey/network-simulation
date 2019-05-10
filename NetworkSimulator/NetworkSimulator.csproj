@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicNode.cs" />
     <Compile Include="Buffer.cs" />
     <Compile Include="Demand.cs" />
     <Compile Include="Demo.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Node.cs" />
     <Compile Include="OFJQN.cs" />
     <Compile Include="QueueBuffer.cs" />
+    <Compile Include="ServiceNode.cs" />
     <Compile Include="SignatureForFragment.cs" />
     <Compile Include="SourceNode.cs" />
     <Compile Include="StartSimulation.cs" />

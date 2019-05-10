@@ -22,7 +22,7 @@ namespace NetworkSimulator
             return false;
         }
 
-        public override int Length()
+        public override int Count()
         {
             return fragments.Count();
         }

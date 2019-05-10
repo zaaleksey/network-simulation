@@ -1,4 +1,5 @@
 ﻿using System;
+using RandomVariables;
 
 namespace NetworkSimulator
 {
@@ -35,6 +36,11 @@ namespace NetworkSimulator
         }
 
         public override void Activate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AddBasicNode(int ID, Random r, RandomVariable ServiceTime, Buffer InBuffer, int kappa, Node[] Nodes, InfoNode Info, double[,,] RouteMatrix)
         {
             throw new NotImplementedException();
         }

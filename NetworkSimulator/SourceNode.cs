@@ -37,14 +37,17 @@ namespace NetworkSimulator
         {
             double rand = random.NextDouble();
             double p = 0;
-            for (int i = 0; i < RouteRow.Length; i++)
+            for (int j = 0; j < RouteRow.GetLength(0); j++)
             {
-                p += RouteRow[i];
-                if (rand < p)
+                for (int k = 0; k < RouteRow.GetLength(1); k++)
                 {
-                    //Посылаем фрагмент в указанный узел
-                    Send(f, Nodes[i]);
-                    break;
+                    p += RouteRow[j, k];
+                    if (rand < p)
+                    {
+                        //Посылаем фрагмент в указанный узел
+                        Send(f, Nodes[j]);
+                        break;
+                    }
                 }
             }
         }
@@ -86,6 +89,11 @@ namespace NetworkSimulator
             Route(f);
         }
 
+        public override void AddBasicNode(int ID, Random r, RandomVariable ServiceTime, Buffer InBuffer, int kappa, Node[] Nodes, InfoNode Info, double[,,] RouteMatrix)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Случайная величина между (интервалы между требованиями) 
         /// </summary>
@@ -97,9 +105,9 @@ namespace NetworkSimulator
 
 
         /// <summary>
-        /// Маршрутная строка только для смежных узлов
+        /// Маршрутная строка только для смежных узлов (первый индекс передает смежный узел, второй и третий передают фрагменты)
         /// </summary>
-        private double[] RouteRow
+        private double[,] RouteRow
         {
             get;
             set;
@@ -111,7 +119,7 @@ namespace NetworkSimulator
         /// <param name="r">Интервалы между поступлениями требований</param>
         /// <param name="RouteRow">Строка для маршрутизации требований</param>
         /// <param name="ID">Идентификатор узла</param>
-        public SourceNode(int ID, Random r, RandomVariable ArrivalInterval, Node[] Nodes, InfoNode Info, double[] RouteRow)
+        public SourceNode(int ID, Random r, RandomVariable ArrivalInterval, Node[] Nodes, InfoNode Info, double[,] RouteRow)
         {
             //Передача параметров
             this.ID = ID;
