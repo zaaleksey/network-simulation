@@ -36,13 +36,13 @@ namespace NetworkSimulator
         }
 
         //Отправляет фрагмент указанному узлу
-        protected override void Send(Fragment fragment, Node node)
+        public override void Send(Fragment fragment, Node node)
         {
             node.Receive(fragment);
         }
 
         //Распределяет фрагмент по узлам
-        protected override void Route(Fragment fragment)
+        public override void Route(Fragment fragment)
         {
             //Номер фрагмента начиная с единицы
             int partIndex = 1;
@@ -75,10 +75,5 @@ namespace NetworkSimulator
         //Активация дивайдера
         public override void Activate()
         {/**/}
-
-        public override void AddBasicNode(int ID, Random r, RandomVariable ServiceTime, Buffer InBuffer, int kappa, Node[] Nodes, InfoNode Info, double[,,] RouteMatrix)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

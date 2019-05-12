@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0FBF1579-89E6-440A-9546-E44D6F068BEE}</ProjectGuid>
+    <ProjectGuid>{B92C991F-6973-4D5F-9A72-66E99D9E5F75}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>NetworkSimulator</RootNamespace>
-    <AssemblyName>NetworkSimulator</AssemblyName>
+    <RootNamespace>ExactNetworkAnalysis</RootNamespace>
+    <AssemblyName>ExactNetworkAnalysis</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,45 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="BalancerNode.cs" />
-    <Compile Include="ServiceNode.cs" />
-    <Compile Include="Buffer.cs" />
-    <Compile Include="Demand.cs" />
-    <Compile Include="ForkNode.cs" />
-    <Compile Include="Fragment.cs" />
-    <Compile Include="InfoNode.cs" />
-    <Compile Include="JoinNode.cs" />
-    <Compile Include="NetworkModel.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="OFJQN.cs" />
-    <Compile Include="QueueBuffer.cs" />
-    <Compile Include="SignatureForFragment.cs" />
-    <Compile Include="SourceNode.cs" />
-    <Compile Include="StartSimulation.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NetworkDescriptions\NetworkDescriptions.csproj">
-      <Project>{568E4510-4372-4A86-AEB5-7F7FF7AFBCB1}</Project>
-      <Name>NetworkDescriptions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RandomVariables\RandomVariables.csproj">
-      <Project>{6deaed38-50db-4d07-a597-299929e17788}</Project>
-      <Name>RandomVariables</Name>
-    </ProjectReference>
+    <Compile Include="InfinityServerOpenForkJoinAnalizator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

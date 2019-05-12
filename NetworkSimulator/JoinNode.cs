@@ -36,7 +36,7 @@ namespace NetworkSimulator
         }
 
         //Отправляет фрагмент по сети
-        protected override void Route(Fragment fragment)
+        public override void Route(Fragment fragment)
         {
             double rand = random.NextDouble();
             double p = 0;
@@ -58,7 +58,7 @@ namespace NetworkSimulator
         }
 
         //Отправка фрагмента в заданный узел сети
-        protected override void Send(Fragment fragment, Node node)
+        public override void Send(Fragment fragment, Node node)
         {
             node.Receive(fragment);
         }
@@ -68,11 +68,6 @@ namespace NetworkSimulator
         {
             //Следующий момент активации
             NextEventTime = double.PositiveInfinity;
-        }
-
-        public override void AddBasicNode(int ID, Random r, RandomVariable ServiceTime, Buffer InBuffer, int kappa, Node[] Nodes, InfoNode Info, double[,,] RouteMatrix)
-        {
-            throw new NotImplementedException();
         }
 
         //Создание и инициализация интегратора

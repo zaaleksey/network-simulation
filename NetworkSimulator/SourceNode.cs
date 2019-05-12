@@ -33,7 +33,7 @@ namespace NetworkSimulator
         /// Отправяляет требование из источника по сети 
         /// </summary>
         /// <param name="f"></param>
-        protected override void Route(Fragment f)
+        public override void Route(Fragment f)
         {
             double rand = random.NextDouble();
             double p = 0;
@@ -57,7 +57,7 @@ namespace NetworkSimulator
         /// </summary>
         /// <param name="f">Требование</param>
         /// <param name="N">Узел-получатель</param>
-        protected override void Send(Fragment f, Node N)
+        public override void Send(Fragment f, Node N)
         {
             N.Receive(f);
         }
@@ -87,11 +87,6 @@ namespace NetworkSimulator
             NextEventTime = Info.GetCurrentTime() + ArrivalInterval.NextValue();
             //Отправка требования по сети обслуживания
             Route(f);
-        }
-
-        public override void AddBasicNode(int ID, Random r, RandomVariable ServiceTime, Buffer InBuffer, int kappa, Node[] Nodes, InfoNode Info, double[,,] RouteMatrix)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

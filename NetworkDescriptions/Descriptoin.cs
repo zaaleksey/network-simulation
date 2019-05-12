@@ -15,14 +15,14 @@ namespace NetworkDescriptions
     {
         //Номер источника
         public int N { get; set; }
-        //Массив номеров множеств систем, различающихся по типу  
-        public int[] S { get; set; }
+        //Массив балансировщиков 
+        public int[] B { get; set; }
         //Массив номеров интеграторов
         public int[] J { get; set; }
         //Массив номеров дивайдеров
         public int[] F { get; set; }
         //Массив базовых систем
-        public int[] s { get; set; }
+        public int[] S { get; set; }
         //Матрица перехода
         public RoutingMatrix Theta { get; set; }
         //Интенсивность входящего потока
@@ -32,15 +32,15 @@ namespace NetworkDescriptions
         //Число обслуживающих устройст в базовых системах
         public int[] kappa { get; set; }
 
-        public Descriptoin(int[] S, int[] F, int[] J, double[] mu, double Lambda0, int[] s, int[] kappa, RoutingMatrix Theta)
+        public Descriptoin(int[] B, int[] F, int[] J, double[] mu, double Lambda0, int[] S, int[] kappa, RoutingMatrix Theta)
         {
             N = 0;//Номер источника (всегда 0)
-            this.S = S;
+            this.B = B;
             this.F = F;
             this.J = J;
             this.mu = mu;
             this.Lambda0 = Lambda0;
-            this.s = s;
+            this.S = S;
             this.kappa = kappa;
             this.Theta = Theta;
             //место для матрицы перехода
@@ -51,12 +51,12 @@ namespace NetworkDescriptions
         {
             using (StreamReader file = new StreamReader(FileName))
             {
-                //Множества систем (так называемые типы)
+                //Балансировщики
                 var temp = file.ReadLine().Split(';');
-                S = new int[temp.Length];
+                B = new int[temp.Length];
                 for (int i = 0; i < temp.Length; i++)
                 {
-                    S[i] = int.Parse(temp[i]);
+                    B[i] = int.Parse(temp[i]);
                 }
 
                 //Дивайдеры ForkNode
@@ -91,23 +91,23 @@ namespace NetworkDescriptions
 
                 //Параметры СМО. Интенсивность обслуживания
                 temp = file.ReadLine().Split(';');
-                mu = new double[S.Length];
+                mu = new double[B.Length];
                 for (int i = 0; i < mu.Length; i++)
                 {
                     mu[i] = double.Parse(temp[i]);
                 }
 
-                //Число систем в каждом типе
+                //Базовые системы
                 temp = file.ReadLine().Split(';');
-                s = new int[S.Length];
-                for (int i = 0; i < s.Length; i++)
+                S = new int[B.Length];
+                for (int i = 0; i < S.Length; i++)
                 {
-                    s[i] = int.Parse(temp[i]);
+                    S[i] = int.Parse(temp[i]);
                 }
 
                 //Число обслуживающих устройств в каждом типе (множестве базовых систем)
                 temp = file.ReadLine().Split(';');
-                kappa = new int[s.Length];
+                kappa = new int[S.Length];
                 for (int i = 0; i < kappa.Length; i++)
                 {
                     kappa[i] = int.Parse(temp[i]);
@@ -118,7 +118,7 @@ namespace NetworkDescriptions
 
                 //Матрица перехода
                 string str;
-                Theta = new RoutingMatrix(S.Length + F.Length + J.Length + 1, F.Length + J.Length + 2);
+                Theta = new RoutingMatrix(B.Length + F.Length + J.Length + 1, F.Length + J.Length + 2);
                 while ((str = file.ReadLine()) != null)
                 {
                     Theta.FillingTheta(str);
@@ -131,10 +131,10 @@ namespace NetworkDescriptions
             StringBuilder str = new StringBuilder(string.Empty);
             str.AppendLine("Параметра сети");
 
-            str.AppendLine("S = ");
-            for (int i = 0; i < S.Length; i++)
+            str.AppendLine("B = ");
+            for (int i = 0; i < B.Length; i++)
             {
-                str.AppendFormat("{0}  ", S[i]);
+                str.AppendFormat("{0}  ", B[i]);
             }
             str.AppendLine();
 
@@ -162,8 +162,8 @@ namespace NetworkDescriptions
             str.AppendLine();
 
             //Число обслуживающих приборов в системах
-            str.AppendLine("s = ");
-            foreach (var item in s)
+            str.AppendLine("S = ");
+            foreach (var item in S)
             {
                 str.AppendFormat("{0}  ", item);
             }

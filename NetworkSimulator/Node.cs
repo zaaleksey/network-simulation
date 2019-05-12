@@ -26,16 +26,12 @@ namespace NetworkSimulator
         public abstract void Receive(Fragment fragment);
         
         //Отправляет фрагмент по сети обслуживания согласно маршрутизации
-        protected abstract void Route(Fragment fragment);
+        public abstract void Route(Fragment fragment);
 
         //Отправляет фрагмент в узел 
-        protected abstract void Send(Fragment fragment, Node node);
-
-        //Для создания в множесте определенного типа систем базовую систему
-        public abstract void AddBasicNode(int ID, Random r, RandomVariable ServiceTime, Buffer InBuffer, int kappa, Node[] Nodes, InfoNode Info, double[,,] RouteMatrix);
+        public abstract void Send(Fragment fragment, Node node);
 
         //Активация узла
         public abstract void Activate();
-        
     }
 }
