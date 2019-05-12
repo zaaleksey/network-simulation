@@ -8,7 +8,7 @@ namespace NetworkSimulator
     // с делением и слиянием требований и произвольным числом обслуживающих прибором с дисциплиной FCFS
     public static class OFJQN
     {
-        public static NetworkModel CreateNetworkModel(Descriptoin description, Random random)
+        public static NetworkModel CreateNetworkModel(Description description, Random random)
         {
             InfoNode Info = new InfoNode();
             Info.SetCurrentTime(0);

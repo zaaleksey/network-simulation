@@ -11,7 +11,7 @@ namespace NetworkDescriptions
     //Пауссоновский входящий поток поток
     //Дисциплина FCFS
     //Одноприборные базовые системы
-    public class Descriptoin
+    public class Description
     {
         //Номер источника
         public int N { get; set; }
@@ -32,7 +32,7 @@ namespace NetworkDescriptions
         //Число обслуживающих устройст в базовых системах
         public int[] kappa { get; set; }
 
-        public Descriptoin(int[] B, int[] F, int[] J, double[] mu, double Lambda0, int[] S, int[] kappa, RoutingMatrix Theta)
+        public Description(int[] B, int[] F, int[] J, double[] mu, double Lambda0, int[] S, int[] kappa, RoutingMatrix Theta)
         {
             N = 0;//Номер источника (всегда 0)
             this.B = B;
@@ -47,7 +47,7 @@ namespace NetworkDescriptions
         }
 
         //Создает открытую сеть с деление и слиянием требований, считывая данные из файла
-        public Descriptoin(string FileName)
+        public Description(string FileName)
         {
             using (StreamReader file = new StreamReader(FileName))
             {
