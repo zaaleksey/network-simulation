@@ -29,7 +29,6 @@ namespace NetworkSimulator
         public void Run(double FinishTime)
         {
             double CurrentTime = 0;
-
             Info.SetCurrentTime(CurrentTime);
             Node NextActionNode;
             double NextTime;
@@ -39,6 +38,7 @@ namespace NetworkSimulator
                 //Выбор узла для передачи управления
                 NextActionNode = Nodes[0];
                 NextTime = Nodes[0].NextEventTime;
+
                 for (int i = 0; i < Nodes.Length; i++)
                 {
                     if (Nodes[i].NextEventTime < NextTime)
@@ -47,7 +47,7 @@ namespace NetworkSimulator
                         NextTime = NextActionNode.NextEventTime;
                     }
                 }
-
+                
                 CurrentTime = NextTime;
                 Info.SetCurrentTime(CurrentTime);
                 //Передача управления узлу

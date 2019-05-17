@@ -67,7 +67,7 @@ namespace NetworkSimulator
         /// <summary>
         /// Число базовых систем
         /// </summary>
-        public int s
+        public int S
         {
             get;
             private set;
@@ -230,8 +230,8 @@ namespace NetworkSimulator
         /// Фрагмент ставится в очередь или сразу начинается его обслуживание 
         /// Реализация сегмента поступления фрагмента
         /// </summary>
-        /// <param name="f">Получаемый фрагмент</param>
-        public override void Receive(Fragment f)
+        /// <param name="fragmetn">Получаемый фрагмент</param>
+        public override void Receive(Fragment fragmetn)
         {
             //Для статистики - Фрагмент застает систему в некотором состоянии
             if (NumberOfFragments() < MaxNumber)
@@ -251,9 +251,9 @@ namespace NetworkSimulator
             //Увеличение числа поступивших фрагментов
             NumberOfArrivedDemands++;
             //Устанавливаем для фрагмента текущее время
-            f.TimeArrivale = Info.GetCurrentTime();
+            fragmetn.TimeArrivale = Info.GetCurrentTime();
             //Плмещаем фрагмент в очередь
-            this.InBuffer.Put(f);
+            this.InBuffer.Put(fragmetn);
             //Если существует свободный сервер то можно начать обслуживание
             if (ExistFreeServer())
             {
@@ -265,8 +265,8 @@ namespace NetworkSimulator
         /// <summary>
         /// Направляет фрагмент в какой-либо узел согласно установленным правилам маршрутизации
         /// </summary>
-        /// <param name="f">Фрагмент для передачи</param>
-        public override void Route(Fragment f)
+        /// <param name="fragment">Фрагмент для передачи</param>
+        public override void Route(Fragment fragment)
         {
             //Для статистики 
             if (NumberOfFragments() < MaxNumber - 1)
@@ -283,7 +283,7 @@ namespace NetworkSimulator
 
             double rand = random.NextDouble();
             double p = 0;
-            int k = f.Sigma.ForkNodeID;
+            int k = fragment.Sigma.ForkNodeID;
 
             for (int i = 0; i < RouteMatrix.GetLength(1); i++)
             {
@@ -297,7 +297,7 @@ namespace NetworkSimulator
                         {
                             Console.WriteLine("Петля");
                         }
-                        Send(f, Nodes[i]);
+                        Send(fragment, Nodes[i]);
                         break;
                     }
                 }
@@ -307,12 +307,12 @@ namespace NetworkSimulator
         /// <summary>
         /// Посылает фрагмент в указанный узел
         /// </summary>
-        /// <param name="f">Посылаемый фрагмент</param>
-        /// <param name="N">Узел для отправки</param>
-        public override void Send(Fragment f, Node N)
+        /// <param name="fragment">Посылаемый фрагмент</param>
+        /// <param name="node">Узел для отправки</param>
+        public override void Send(Fragment fragment, Node node)
         {
             //Посылаем фрагмент
-            N.Receive(f);
+            node.Receive(fragment);
         }
 
         /// <summary>
@@ -337,8 +337,6 @@ namespace NetworkSimulator
             }
             //Отправляем обслуженный фрагмент в другие узлы 
             Route(value);
-
-
         }
     }
 }

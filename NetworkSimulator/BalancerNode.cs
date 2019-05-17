@@ -8,9 +8,7 @@ using RandomVariables;
 namespace NetworkSimulator
 {
     public class BalancerNode : Node
-    {
-        public int ID { get; set; }
-
+    { 
         public List<ServiceNode> ServiceNodes { get; set; }
 
         public BalancerNode(int id)
@@ -59,7 +57,7 @@ namespace NetworkSimulator
 
         public override void Send(Fragment fragment, Node node)
         {
-            PassNode().Send(fragment, node);
+            PassNode().Receive(fragment);
         }
     }
 }
