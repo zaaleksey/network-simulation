@@ -22,18 +22,18 @@ namespace NetworkSimulator
         /// <summary>
         /// Получение требования (возврат требования в исчтоник) 
         /// </summary>
-        /// <param name="f"></param>
-        public override void Receive(Fragment f)
+        /// <param name="fragment"></param>
+        public override void Receive(Fragment fragment)
         {
             //Console.WriteLine("Требование вернулось");
-            ResponseTimes.Add(Info.GetCurrentTime() - f.TimeGeneration);
+            ResponseTimes.Add(Info.GetCurrentTime() - fragment.TimeGeneration);
         }
 
         /// <summary>
         /// Отправяляет требование из источника по сети 
         /// </summary>
-        /// <param name="f"></param>
-        public override void Route(Fragment f)
+        /// <param name="fragment"></param>
+        public override void Route(Fragment fragment)
         {
             double rand = random.NextDouble();
             double p = 0;
@@ -45,7 +45,7 @@ namespace NetworkSimulator
                     if (rand < p)
                     {
                         //Посылаем фрагмент в указанный узел
-                        Send(f, Nodes[j]);
+                        Send(fragment, Nodes[j]);
                         break;
                     }
                 }
@@ -55,11 +55,11 @@ namespace NetworkSimulator
         /// <summary>
         /// Отправление требования от источника к другому узлу
         /// </summary>
-        /// <param name="f">Требование</param>
-        /// <param name="N">Узел-получатель</param>
-        public override void Send(Fragment f, Node N)
+        /// <param name="fragmetn">Требование</param>
+        /// <param name="node">Узел-получатель</param>
+        public override void Send(Fragment fragmetn, Node node)
         {
-            N.Receive(f);
+            node.Receive(fragmetn);
         }
 
         /// <summary>

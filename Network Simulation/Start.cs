@@ -44,7 +44,7 @@ namespace Network_Simulation
         {
             file = "OneNetwork";
             Random random = new Random();
-            double FinishTime = 1000000;
+            double FinishTime = 100;
             double Lambda = 0.5;
             double ApproximationRT = 0;
             double SimulationRT = 0;
