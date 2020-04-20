@@ -5,7 +5,7 @@ using System;
 namespace NetworkSimulator
 {
     // Имитционная модель для открытой экспоненциальносй сети массового обслуживания 
-    // с делением и слиянием требований и произвольным числом обслуживающих прибором с дисциплиной FCFS
+    // с делением и слиянием требований и произвольным числом обслуживающих устройств с дисциплиной FCFS
     public static class OFJQN
     {
         public static NetworkModel CreateNetworkModel(Description description, Random random)
